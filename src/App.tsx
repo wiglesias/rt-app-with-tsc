@@ -8,6 +8,10 @@ interface Sub {
   description?: string;
 }
 
+interface AppState {
+  subs: Array<Sub>
+}
+
 const INTIAL_STATE = [
   {
     nick: 'cunyape',
@@ -23,7 +27,7 @@ const INTIAL_STATE = [
 ];
 
 function App() {
-  const [subs, setSubs] = useState<Sub[]>([]);
+  const [subs, setSubs] = useState<AppState["subs"]>([]);
 
   useEffect(() => {
     setSubs(INTIAL_STATE);
