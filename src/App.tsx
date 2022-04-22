@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import Form from './components/Form';
 import List from './components/List';
-
-interface Sub {
-  nick: string;
-  subMonths: number;
-  avatar: string;
-  description?: string;
-}
-
+import { Sub } from './types';
 interface AppState {
   subs: Array<Sub>
 }
@@ -37,7 +31,8 @@ function App() {
   return (
     <div className="App">
       <h1>Cotoca subs</h1>
-    <List subs={subs}/>
+      <List subs={subs}/>
+      <Form />
     </div>
   );
 }
