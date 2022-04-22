@@ -5,7 +5,11 @@ interface FormState {
   inputValues: Sub
 }
 
-const Form = () => {
+interface FormProps {
+  onNewSub: React.Dispatch<React.SetStateAction<Sub[]>>
+}
+
+const Form = ({ onNewSub }: FormProps) => {
   const [inputValues, setInputValues] = useState<FormState["inputValues"]>({
     nick: '',
     avatar: '',
@@ -13,7 +17,10 @@ const Form = () => {
     description: ''
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onNewSub(subs => ([...subs, inputValues]))
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setInputValues({
