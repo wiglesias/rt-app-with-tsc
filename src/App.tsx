@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
+interface Sub {
+  nick: string;
+  subMonths: number;
+  avatar: string;
+  description?: string;
+}
+
+const INTIAL_STATE = [
+  {
+    nick: 'cunyape',
+    subMonths: 3,
+    avatar: 'https://i.pravatar.cc/150?u=cunyape',
+    description: 'Cunyape fa de moderador a vegades'
+  },
+  {
+    nick: 'tamales',
+    subMonths: 7,
+    avatar: 'https://i.pravatar.cc/150?u=tamales',
+  }
+];
+
 function App() {
-  const [subs, setSubs] = useState([
-    {
-      nick: 'cunyape',
-      subMonths: 3,
-      avatar: 'https://i.pravatar.cc/150?u=cunyape',
-      description: 'Cunyape fa de moderador a vegades'
-    },
-    {
-      nick: 'tamales',
-      subMonths: 7,
-      avatar: 'https://i.pravatar.cc/150?u=tamales',
-    }
-  ]);
+  const [subs, setSubs] = useState<Sub[]>([]);
+
+  useEffect(() => {
+    setSubs(INTIAL_STATE);
+  }, []);
 
   return (
     <div className="App">
