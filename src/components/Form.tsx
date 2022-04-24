@@ -9,13 +9,17 @@ interface FormProps {
   onNewSub: (newSub: Sub) => void;
 }
 
+const INITIAL_STATE = {
+  nick: '',
+  avatar: '',
+  subMonths: 0,
+  description: ''
+}
+
 const Form = ({ onNewSub }: FormProps) => {
-  const [inputValues, setInputValues] = useState<FormState["inputValues"]>({
-    nick: '',
-    avatar: '',
-    subMonths: 0,
-    description: ''
-  });
+  const [inputValues, setInputValues] = useState<FormState["inputValues"]>(
+    INITIAL_STATE
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,12 +35,7 @@ const Form = ({ onNewSub }: FormProps) => {
   };
 
   const handleClear = () => {
-    setInputValues({
-      nick: '',
-      avatar: '',
-      subMonths: 0,
-      description: ''
-    })
+    setInputValues(INITIAL_STATE)
   };
 
   return (
