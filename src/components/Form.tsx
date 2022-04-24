@@ -20,6 +20,7 @@ const Form = ({ onNewSub }: FormProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onNewSub(inputValues);
+    handleClear();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,6 +30,15 @@ const Form = ({ onNewSub }: FormProps) => {
     });
   };
 
+  const handleClear = () => {
+    setInputValues({
+      nick: '',
+      avatar: '',
+      subMonths: 0,
+      description: ''
+    })
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -36,7 +46,8 @@ const Form = ({ onNewSub }: FormProps) => {
         <input onChange={handleChange} value={inputValues.subMonths} type="number" name="subMonths" placeholder="subMonths" />
         <input onChange={handleChange} value={inputValues.avatar} type="text" name="avatar" placeholder="avatar" />
         <textarea onChange={handleChange} value={inputValues.description} name="description" placeholder="description" />
-        <button>Save new sub!</button>
+        <button onClick={handleClear} type="button">Clear the form</button>
+        <button type="submit">Save new sub!</button>
       </form>
     </div>
   )
