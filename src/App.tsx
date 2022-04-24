@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import Form from './components/Form';
 import List from './components/List';
-import { Sub, SubsResponseFromApi } from './types';
+import { getAllSubs } from './services/getAllSubs';
+import { Sub } from './types';
 interface AppState {
   subs: Array<Sub>
   newSubNumber: number
@@ -23,42 +24,19 @@ interface AppState {
 // ];
 
 function App() {
-  const [subs, setSubs] = useState<AppState["subs"]>([]);
   const [newSubNumber, setNewSubNumber] = useState<AppState["newSubNumber"]>(0)
   const divRef = useRef<HTMLDivElement>(null);
 
+  const [subs, setSubs] = useState<AppState["subs"]>([]);
   useEffect(() => {
     // setSubs(INTIAL_STATE);
-    const fetchSubs = (): Promise<SubsResponseFromApi> => {
-      return fetch('http://localhost:3001/subs').then(res => res.json())
-    }
-
-    const mapFromApiToSubs = (apiResponse: SubsResponseFromApi): Array<Sub> => {
-      return apiResponse.map(subFromApi => {
-        const {
-          nick,
-          months: subMonths,
-          profileUrl: avatar,
-          description
-        } = subFromApi
-
-        return {
-          nick,
-          subMonths,
-          avatar,
-          description
-        }
-      })
-    }
 
     // fetchSubs()
     //   .then(apiSubs => {
     //     const subs = mapFromApiToSubs(apiSubs);
     //     setSubs(subs);
     // })
-    fetchSubs()
-      .then(mapFromApiToSubs)
-      .then(setSubs)
+    getAllSubs().then(setSubs)
   }, []);
 
   const handleNewSub = (newSub: Sub): void => {
